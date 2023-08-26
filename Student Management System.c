@@ -22,9 +22,52 @@ void SearchStudent();
 void EditStudentDetails();
 void DeleteStudent();
 
-int main() 
+int Login()
+{
+    char username[50];
+    char password[50];
+
+    printf("\n\t\tUsername: ");
+    scanf("%s", username);
+
+    printf("\t\tPassword: ");
+    scanf("%s", password);
+
+    
+    if (strcmp(username, "admin") == 0 && strcmp(password, "12345") == 0)
+    {
+        printf("\n\t\tLogin successful!\n");
+        return 1; 
+    }
+    else
+    {
+        printf("\n\t\tLogin failed. Invalid username or password.\n");
+        return 0; 
+    }
+}
+
+int main()
 {
     char choice, x;
+    int loggedIn = 0; 
+
+    while (1)
+    {
+        system("cls");
+        printf("\t\t\t\t\t<== Student Management System ==>\n");
+        printf("\t\t*********************************************************************************\n");
+
+        if (!loggedIn)
+        {
+            printf("\n\t\tLogin to continue:\n");
+            loggedIn = Login();
+            if (!loggedIn)
+            {
+                printf("\n\t\tPress any key to retry...\n");
+                getch();
+                continue;
+            }
+        } char choice, x;
     while (1) 
     {
         system("cls");
@@ -66,7 +109,7 @@ int main()
             case 'f':
                 printf("\t\tPress Y to exit and N to cancel: ");
                 fflush(stdin);
-                scanf(" %c", &x); // Added a space before %c to consume newline characters
+                scanf(" %c", &x); 
                 if (x == 'Y' || x == 'y')
                 {
                     exit(0);
@@ -92,6 +135,7 @@ int main()
         getch(); 
     }
     return 0;
+}
 }
 
 void AddStudent()
