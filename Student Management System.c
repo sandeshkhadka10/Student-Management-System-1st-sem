@@ -54,7 +54,7 @@ int main()
     while (1)
     {
         system("cls");
-        printf("\t\t\t\t\t<== Student Management System ==>\n");
+        printf("\t\t\t\t\t<== STUDENT MANAGEMENT SYSTEM ==>\n");
         printf("\t\t*********************************************************************************\n");
 
         if (!loggedIn)
@@ -188,7 +188,8 @@ void AddStudent()
         fflush(stdin);
         printf("\n\t\tDo you want to add another record?(Y/N): ");
         scanf(" %c", &another);
-    } while (another == 'y' || another == 'Y');
+    } 
+	while (another == 'y' || another == 'Y');
 }
 
 void DisplayAllStudents()
@@ -311,7 +312,8 @@ void SearchStudent()
     printf("\t\t5. Email\n");
     printf("\t\t6. Phone Number\n");
     printf("\t\t7. GPA\n");
-    printf("\t\tEnter your choice (1-7): ");
+    printf("\t\t8. Exit\n");
+    printf("\t\tEnter your choice (1-8): ");
 
     int choice;
     scanf("%d", &choice);
@@ -349,13 +351,17 @@ void SearchStudent()
 
         case 6:
             printf("\n\t\tEnter Updated Phone number: ");
-            scanf("%lf", &updatedStudent.phonenumber);
+            gets(updatedStudent.phonenumber);
             break;
 
         case 7:
             printf("\n\t\tEnter Updated GPA: ");
             scanf("%f", &updatedStudent.gpa);
             break;
+            
+        case 8:
+        	exit(0);
+        	break;
 
         default:
             printf("\n\t\tInvalid choice.\n");
