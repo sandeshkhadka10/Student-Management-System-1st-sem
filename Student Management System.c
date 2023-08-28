@@ -12,6 +12,9 @@ struct Student
     char email[50];
     char phonenumber[50];
     float gpa;
+    float totalAmount;
+    float paidAmount;
+    float dueAmount;
 };
 
 const char *filename = "students_records.dat";
@@ -33,7 +36,6 @@ int Login()
     printf("\t\tPassword: ");
     scanf("%s", password);
 
-    
     if (strcmp(username, "admin") == 0 && strcmp(password, "12345") == 0)
     {
         printf("\n\t\tLogin successful!\n");
@@ -67,75 +69,78 @@ int main()
                 getch();
                 continue;
             }
-        } char choice, x;
-    while (1) 
-    {
-        system("cls");
-        printf("\t\t\t\t\t<== Student Management System ==>\n");
-        printf("\t\t*********************************************************************************\n");
-        flag:
-        fflush(stdin);
-        printf("\n\t\ta. Add Student\n");
-        printf("\t\tb. Display All Students\n");
-        printf("\t\tc. Search Student\n");
-        printf("\t\td. Edit Student Details\n");
-        printf("\t\te. Delete Student\n");
-        printf("\t\tf. Exit\n");
-        printf("\n\t\tEnter your choice: ");
-        scanf(" %c", &choice); 
-        
-        switch (choice) 
-        {
-            case 'a':
-                AddStudent();
-                break;
-                
-            case 'b':
-                DisplayAllStudents();
-                break;
-                
-            case 'c':
-                SearchStudent();
-                break;
-                
-            case 'd':
-                EditStudentDetails();
-                break;
-                
-            case 'e':
-                DeleteStudent();
-                break;
-                
-            case 'f':
-                printf("\t\tPress Y to exit and N to cancel: ");
-                fflush(stdin);
-                scanf(" %c", &x); 
-                if (x == 'Y' || x == 'y')
-                {
-                    exit(0);
-                }
-                else if (x == 'N' || x == 'n')
-                {
-                    printf("\t\tPlease read the option clearly\n");
-                    goto flag;
-                }
-                else
-                {
-                    printf("\t\t Please press Y or N only\n");
-                    goto flag;
-                }
-                break;
-
-            default:
-                printf("\n\t\tInvalid Choice....\n");
-                printf("\t\tPlease Enter from A to F\n");
-                goto flag;
         }
-        printf("\n\t\t\t\t\tPress any key to continue");
-        getch(); 
+
+        while (1) 
+        {
+            system("cls");
+            printf("\t\t\t\t\t<== Student Management System ==>\n");
+            printf("\t\t*********************************************************************************\n");
+            flag:
+            fflush(stdin);
+            printf("\n\t\ta. Add Student\n");
+            printf("\t\tb. Display All Students\n");
+            printf("\t\tc. Search Student\n");
+            printf("\t\td. Edit Student Details\n");
+            printf("\t\te. Delete Student\n");
+            printf("\t\tf. Exit\n");
+            printf("\n\t\tEnter your choice: ");
+            scanf(" %c", &choice); 
+            
+            switch (choice) 
+            {
+                case 'a':
+                    AddStudent();
+                    break;
+                    
+                case 'b':
+                    DisplayAllStudents();
+                    break;
+                    
+                case 'c':
+                    SearchStudent();
+                    break;
+                    
+                case 'd':
+                    EditStudentDetails();
+                    break;
+                    
+                case 'e':
+                    DeleteStudent();
+                    break;
+                    
+                case 'f':
+                    printf("\t\tPress Y to exit and N to cancel: ");
+                    fflush(stdin);
+                    scanf(" %c", &x); 
+                    if (x == 'Y' || x == 'y')
+                    {
+                        exit(0);
+                    }
+                    else if (x == 'N' || x == 'n')
+                    {
+                        printf("\t\tPlease read the option clearly\n");
+                        goto flag;
+                    }
+                    else
+                    {
+                        printf("\t\t Please press Y or N only\n");
+                        goto flag;
+                    }
+                    break;
+
+                default:
+                    printf("\n\t\tInvalid Choice....\n");
+                    printf("\t\tPlease Enter from A to F\n");
+                    goto flag;
+            }
+            
+            printf("\n\t\t\t\t\tPress any key to continue");
+            getch(); 
+        }
     }
+    
     return 0;
-}
 }
 
 void AddStudent()
@@ -173,6 +178,13 @@ void AddStudent()
         printf("\n\t\tGPA: ");
         fflush(stdin);
         scanf("%f", &newstudent.gpa);
+
+        printf("\n\t\tPaid Amount: ");
+        scanf("%f", &newstudent.paidAmount);
+
+        newstudent.totalAmount = 790000; // Fixed total amount
+        newstudent.dueAmount = newstudent.totalAmount - newstudent.paidAmount;
+        
         printf("\t\t____________________________________________________");
        
         FILE *file = fopen(filename, "ab");
@@ -189,7 +201,7 @@ void AddStudent()
         printf("\n\t\tDo you want to add another record?(Y/N): ");
         scanf(" %c", &another);
     } 
-	while (another == 'y' || another == 'Y');
+    while (another == 'y' || another == 'Y');
 }
 
 void DisplayAllStudents()
@@ -212,9 +224,12 @@ void DisplayAllStudents()
         printf("\n\t\tId: %d", newstudent.id);
         printf("\n\t\tClass and Semester: %s", newstudent.year);
         printf("\n\t\tAddress: %s", newstudent.address);
-        printf("\n\t\tEmail:%s",newstudent.email);
-        printf("\n\t\tPhone number:%s",newstudent.phonenumber);
+        printf("\n\t\tEmail: %s", newstudent.email);
+        printf("\n\t\tPhone number: %s", newstudent.phonenumber);
         printf("\n\t\tGPA: %.2f", newstudent.gpa);
+        printf("\n\t\tTotal Amount: %.2f", newstudent.totalAmount);
+        printf("\n\t\tPaid Amount: %.2f", newstudent.paidAmount);
+        printf("\n\t\tDue Amount: %.2f", newstudent.dueAmount);
         printf("\n\t\t____________________________________");
     }   
     fclose(file);
@@ -222,7 +237,7 @@ void DisplayAllStudents()
 
 void SearchStudent()
 {
-    int search=0, found=0;
+    int search = 0, found = 0;
     system("cls");
     printf("\t\t\t\t\t<== Search Student ==>\n\n");
     
@@ -247,9 +262,12 @@ void SearchStudent()
             printf("\n\t\tId: %d", newstudent.id);
             printf("\n\t\tClass and Semester: %s", newstudent.year);
             printf("\n\t\tAddress: %s", newstudent.address);
-            printf("\n\t\tEmail:%s",newstudent.email);
-            printf("\n\t\tPhone number:%s",newstudent.phonenumber);
+            printf("\n\t\tEmail: %s", newstudent.email);
+            printf("\n\t\tPhone number: %s", newstudent.phonenumber);
             printf("\n\t\tGPA: %.2f", newstudent.gpa);
+            printf("\n\t\tTotal Amount: %.2f", newstudent.totalAmount);
+            printf("\n\t\tPaid Amount: %.2f", newstudent.paidAmount);
+            printf("\n\t\tDue Amount: %.2f", newstudent.dueAmount);
             printf("\n\t\t____________________________________");
         }
     }
@@ -262,9 +280,7 @@ void SearchStudent()
     fclose(file);
 }
 
-
-
-   void EditStudentDetails()
+void EditStudentDetails()
 {
     system("cls");
     printf("\t\t\t\t\t<== Edit Student Details ==>\n\n");
@@ -312,7 +328,8 @@ void SearchStudent()
     printf("\t\t5. Email\n");
     printf("\t\t6. Phone Number\n");
     printf("\t\t7. GPA\n");
-    printf("\t\t8. Exit\n");
+    printf("\t\t8. Paid Amount\n");
+    printf("\t\t9. Exit\n");
     printf("\t\tEnter your choice (1-8): ");
 
     int choice;
@@ -337,6 +354,7 @@ void SearchStudent()
             gets(updatedStudent.year);
             break;
 
+
         case 4:
             printf("\n\t\tEnter Updated Address: ");
             fflush(stdin);
@@ -360,8 +378,64 @@ void SearchStudent()
             break;
             
         case 8:
-        	exit(0);
-        	break;
+    printf("\n\t\tEnter Updated Paid Amount: ");
+    scanf("%f", &updatedStudent.paidAmount);
+
+    printf("\n\t\tEnter Semester: ");
+    fflush(stdin);
+    gets(updatedStudent.year);
+    
+    int i=0;
+
+    // Convert the entered semester to lowercase before comparison
+    for (i = 0; updatedStudent.year[i]; i++) 
+	{
+        updatedStudent.year[i] = tolower(updatedStudent.year[i]);
+    }
+
+    // Calculate the remaining due amount based on the updated paid amount and semester
+    if (strcmp(updatedStudent.year, "1st semester") == 0) 
+    {
+        updatedStudent.dueAmount = updatedStudent.dueAmount - updatedStudent.paidAmount - 0;
+    }
+    else if (strcmp(updatedStudent.year, "2nd semester") == 0) 
+    {
+        updatedStudent.dueAmount = updatedStudent.dueAmount - updatedStudent.paidAmount - 0;
+    }
+    else if (strcmp(updatedStudent.year, "3rd semester") == 0) 
+    {
+        updatedStudent.dueAmount = updatedStudent.dueAmount - updatedStudent.paidAmount - 0;
+    }
+    else if (strcmp(updatedStudent.year, "4th semester") == 0) 
+    {
+        updatedStudent.dueAmount = updatedStudent.dueAmount - updatedStudent.paidAmount - 0;
+    }
+    else if (strcmp(updatedStudent.year, "5th semester") == 0) 
+    {
+        updatedStudent.dueAmount = updatedStudent.dueAmount - updatedStudent.paidAmount - 0;
+    }
+    else if (strcmp(updatedStudent.year, "6th semester") == 0) 
+    {
+        updatedStudent.dueAmount = updatedStudent.dueAmount - updatedStudent.paidAmount - 0;
+    }
+    else if (strcmp(updatedStudent.year, "7th semester") == 0) 
+    {
+        updatedStudent.dueAmount = updatedStudent.dueAmount - updatedStudent.paidAmount - 0;
+    }
+    else if (strcmp(updatedStudent.year, "8th semester") == 0) 
+    {
+        updatedStudent.dueAmount = updatedStudent.dueAmount - updatedStudent.paidAmount - 0;
+    }
+    else
+    {
+        printf("\n\t\tInvalid semester.\n");
+        goto flag;
+    }
+    break;
+
+        case 9:
+            exit(0);
+            break;
 
         default:
             printf("\n\t\tInvalid choice.\n");
@@ -380,7 +454,7 @@ void SearchStudent()
     {
         if (newstudent.id == id)
         {
-            fseek(file, -sizeof(struct Student), SEEK_CUR);
+            fseek(file,-sizeof(struct Student), SEEK_CUR);
             fwrite(&updatedStudent, sizeof(struct Student), 1, file);
             break;
         }
@@ -390,7 +464,6 @@ void SearchStudent()
 
     printf("\n\t\tStudent details updated successfully.\n");
 }
-
 
 void DeleteStudent()
 {
@@ -445,3 +518,5 @@ void DeleteStudent()
         printf("\t\tStudent with ID %d not found.\n", search);
     }
 }
+
+
