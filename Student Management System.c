@@ -220,16 +220,16 @@ void DisplayAllStudents()
     
     while (fread(&newstudent, sizeof(struct Student), 1, file))
     {
-        printf("\n\t\tStudent Name: %s", newstudent.name);
-        printf("\n\t\tId: %d", newstudent.id);
-        printf("\n\t\tClass and Semester: %s", newstudent.year);
-        printf("\n\t\tAddress: %s", newstudent.address);
-        printf("\n\t\tEmail: %s", newstudent.email);
-        printf("\n\t\tPhone number: %s", newstudent.phonenumber);
-        printf("\n\t\tGPA: %.2f", newstudent.gpa);
-        printf("\n\t\tTotal Amount: %.2f", newstudent.totalAmount);
-        printf("\n\t\tPaid Amount: %.2f", newstudent.paidAmount);
-        printf("\n\t\tDue Amount: %.2f", newstudent.dueAmount);
+        printf("\n\t\tStudent Name       :    %s", newstudent.name);
+        printf("\n\t\tId                 :    %d", newstudent.id);
+        printf("\n\t\tClass and Semester :    %s", newstudent.year);
+        printf("\n\t\tAddress            :    %s", newstudent.address);
+        printf("\n\t\tEmail              :    %s", newstudent.email);
+        printf("\n\t\tPhone number       :    %s", newstudent.phonenumber);
+        printf("\n\t\tGPA                :    Rs %.2f", newstudent.gpa);
+        printf("\n\t\tTotal Amount       :    Rs %.2f", newstudent.totalAmount);
+        printf("\n\t\tPaid Amount        :    Rs %.2f", newstudent.paidAmount);
+        printf("\n\t\tDue Amount         :    Rs %.2f", newstudent.dueAmount);
         printf("\n\t\t____________________________________");
     }   
     fclose(file);
@@ -258,16 +258,16 @@ void SearchStudent()
         if (newstudent.id == search)
         {
             found = 1;
-            printf("\n\t\tStudent Name: %s", newstudent.name);
-            printf("\n\t\tId: %d", newstudent.id);
-            printf("\n\t\tClass and Semester: %s", newstudent.year);
-            printf("\n\t\tAddress: %s", newstudent.address);
-            printf("\n\t\tEmail: %s", newstudent.email);
-            printf("\n\t\tPhone number: %s", newstudent.phonenumber);
-            printf("\n\t\tGPA: %.2f", newstudent.gpa);
-            printf("\n\t\tTotal Amount: %.2f", newstudent.totalAmount);
-            printf("\n\t\tPaid Amount: %.2f", newstudent.paidAmount);
-            printf("\n\t\tDue Amount: %.2f", newstudent.dueAmount);
+            printf("\n\t\tStudent Name         : %s", newstudent.name);
+            printf("\n\t\tId                   : %d", newstudent.id);
+            printf("\n\t\tClass and Semester   : %s", newstudent.year);
+            printf("\n\t\tAddress              : %s", newstudent.address);
+            printf("\n\t\tEmail                : %s", newstudent.email);
+            printf("\n\t\tPhone number         : %s", newstudent.phonenumber);
+            printf("\n\t\tGPA                  : %.2f", newstudent.gpa);
+            printf("\n\t\tTotal Amount         : Rs %.2f", newstudent.totalAmount);
+            printf("\n\t\tPaid Amount          : Rs %.2f", newstudent.paidAmount);
+            printf("\n\t\tDue Amount           : Rs %.2f", newstudent.dueAmount);
             printf("\n\t\t____________________________________");
         }
     }
