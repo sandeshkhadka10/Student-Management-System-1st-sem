@@ -2,6 +2,7 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h> //for sleep function
 
 struct Student 
 {
@@ -39,6 +40,8 @@ int Login()
     if (strcmp(username, "admin") == 0 && strcmp(password, "12345") == 0)
     {
         printf("\n\t\tLogin successful!\n");
+        printf("\n\t\t\t\t\t\tLogging in . . . .\n");
+		sleep(3);
         return 1; 
     }
     else
