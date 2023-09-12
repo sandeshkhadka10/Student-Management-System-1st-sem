@@ -226,7 +226,7 @@ void DisplayAllStudents()
         printf("\n\t\tAddress            :    %s", newstudent.address);
         printf("\n\t\tEmail              :    %s", newstudent.email);
         printf("\n\t\tPhone number       :    %s", newstudent.phonenumber);
-        printf("\n\t\tGPA                :    Rs %.2f", newstudent.gpa);
+        printf("\n\t\tGPA                :    %.2f", newstudent.gpa);
         printf("\n\t\tTotal Amount       :    Rs %.2f", newstudent.totalAmount);
         printf("\n\t\tPaid Amount        :    Rs %.2f", newstudent.paidAmount);
         printf("\n\t\tDue Amount         :    Rs %.2f", newstudent.dueAmount);
