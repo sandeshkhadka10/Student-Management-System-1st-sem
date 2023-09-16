@@ -39,14 +39,14 @@ int Login()
 
     if (strcmp(username, "admin") == 0 && strcmp(password, "12345") == 0)
     {
-        printf("\n\t\tLogin successful!\n");
-        printf("\n\t\t\t\t\t\tLogging in . . . .\n");
+        printf("\n\t\tLogin successful\n");
+        printf("\n\t\tLogging in . . . .\n");
 		sleep(3);
         return 1; 
     }
     else
     {
-        printf("\n\t\tLogin failed. Invalid username or password.\n");
+        printf("\n\t\tLogin failed! Invalid username or password.\n");
         return 0; 
     }
 }
@@ -54,16 +54,7 @@ int Login()
 int main()
 {
     char choice, x;
-    int loggedIn = 0;
-
-    // Initialize the data file if it doesn't exist
-    FILE *file = fopen(filename, "ab");
-    if (file == NULL)
-    {
-        printf("\t\tUnable to open or create data file.\n");
-        exit(0);
-    }
-    fclose(file);
+    int loggedIn = 0; 
 
     while (1)
     {
@@ -71,11 +62,11 @@ int main()
         printf("\t\t\t\t\t<== STUDENT MANAGEMENT SYSTEM ==>\n");
         printf("\t\t*********************************************************************************\n");
 
-        if (loggedIn!=1)
+        if (!loggedIn)
         {
             printf("\n\t\tLogin to continue:\n");
             loggedIn = Login();
-            if (loggedIn==0)
+            if (!loggedIn)
             {
                 printf("\n\t\tPress any key to retry...\n");
                 getch();
@@ -83,9 +74,10 @@ int main()
             }
         }
 
-        while (1)
+        while (1) 
         {
-            system("cls");
+        	flag:
+        	system("cls");
             printf("\t\t\t\t\t<== Student Management System ==>\n");
             printf("\t\t*********************************************************************************\n");
             fflush(stdin);
@@ -95,119 +87,58 @@ int main()
             printf("\t\td. Edit Student Details\n");
             printf("\t\te. Delete Student\n");
             printf("\t\tf. Exit\n");
-            printf("\n\t\tEnter your choice: ");
-            scanf(" %c", &choice);
-
-            switch (choice)
+            printf("\n\t\tEnter your choice(a-f): ");
+            scanf(" %c", &choice); 
+            
+            switch (choice) 
             {
                 case 'a':
                     AddStudent();
                     break;
-
+                    
                 case 'b':
                     DisplayAllStudents();
                     break;
-
+                    
                 case 'c':
                     SearchStudent();
                     break;
-
+                    
                 case 'd':
                     EditStudentDetails();
                     break;
-
+                    
                 case 'e':
                     DeleteStudent();
                     break;
-
+                    
                 case 'f':
-                    printf("\t\tPress (Y/y) to exit and (N/n) to cancel: ");
+                    printf("\t\tPress Y to exit and any other character to cancel: ");
                     fflush(stdin);
-                    scanf(" %c", &x);
+                    scanf(" %c", &x); 
                     if (x == 'Y' || x == 'y')
                     {
                         exit(0);
-                    }
-                    else if (x == 'N' || x == 'n')
-                    {
-                        printf("\t\tPlease read the option clearly\n");
-
-                    }
+                	}
                     else
                     {
-                        printf("\t\t Please press (Y/y) or (N/n) only\n");
+                        goto flag;
                     }
                     break;
 
                 default:
-                    printf("\n\t\tInvalid Choice....\n");
+                    printf("\n\t\tInvalid Choice!\n");
                     printf("\t\tPlease Enter from a to f\n");
-                    while (1)
-                    {
-                    	printf("\n\t\t\t\t\tPress any key to continue");
-                        getch();
-
-                        system("cls");
-                        printf("\t\t\t\t\t<== Student Management System ==>\n");
-                        printf("\t\t*********************************************************************************\n");
-
-                        printf("\n\t\ta. Add Student\n");
-                        printf("\t\tb. Display All Students\n");
-                        printf("\t\tc. Search Student\n");
-                        printf("\t\td. Edit Student Details\n");
-                        printf("\t\te. Delete Student\n");
-                        printf("\t\tf. Exit\n");
-                        printf("\n\t\tEnter your choice: ");
-                        scanf(" %c", &choice);
-                        switch (choice)
-                        {
-                            case 'a':
-                                AddStudent();
-                                break;
-
-                            case 'b':
-                                DisplayAllStudents();
-                                break;
-
-                            case 'c':
-                                SearchStudent();
-                                break;
-
-                            case 'd':
-                                EditStudentDetails();
-                                break;
-
-                            case 'e':
-                                DeleteStudent();
-                                break;
-
-                            case 'f':
-                                printf("\t\tPress (Y/y) to exit and (N/n) to cancel: ");
-                                fflush(stdin);
-                                scanf(" %c", &x);
-                                if (x == 'Y' || x == 'y')
-                                {
-                                    exit(0);
-                                }
-                                else if (x == 'N' || x == 'n')
-                                {
-                                    printf("\t\tPlease read the option clearly\n");
-                                }
-                                else
-                                {
-                                    printf("\t\tPlease press (Y/y)or (N/n)only\n");
-                                }
-                                break;
-
-                            default:
-                                printf("\n\t\tInvalid Choice....\n");
-                                printf("\t\tPlease Enter from a to f\n");
-                        }
-                    }
+                    printf("\t\tPress any key to retry");
+                    getch();
+                    goto flag;
             }
-            getch();
+            
+            printf("\n\t\tPress any key to continue");
+            getch(); 
         }
     }
+    
     return 0;
 }
 void AddStudent()
@@ -301,18 +232,16 @@ void DisplayAllStudents()
         printf("\n\t\tDue Amount         :    Rs %.2f", newstudent.dueAmount);
         printf("\n\t\t____________________________________");
     }
-    
+        
+
     fclose(file);
 
     // Check if no records were found and display a message
-    if (recordsFound == 0)
+    if (recordsFound==0)
     {
         printf("\n\t\tNo records found.\n");
     }
-
-    printf("\n\t\t\t\t\tPress any key to continue");
 }
-
 
 void SearchStudent()
 {
@@ -348,17 +277,13 @@ void SearchStudent()
             printf("\n\t\tPaid Amount          : Rs %.2f", newstudent.paidAmount);
             printf("\n\t\tDue Amount           : Rs %.2f", newstudent.dueAmount);
             printf("\n\t\t____________________________________");
-            printf("\n\t\t\t\t\tPress any key to continue...");
     }
     }
 
     if (found != 1)
     {
         printf("\n\t\tRecord not found\n");
-        
-        printf("\n\t\t\t\t\tPress any key to continue...");
     }
-
     fclose(file);
 }
 
@@ -395,7 +320,6 @@ void EditStudentDetails()
     if (found != 1)
     {
         printf("\n\t\tStudent with ID %d not found.\n", id);
-        printf("\n\t\t\t\t\t\tPress any key to continue");
         fclose(file);
         return;
     }
@@ -406,7 +330,6 @@ void EditStudentDetails()
     do
     {
         system("cls");
-
         printf("\t\t\t\t\t<== Edit Student Details ==>\n\n");
         printf("\t\tSelect fields to update:\n");
         printf("\t\t1. Name\n");
@@ -487,13 +410,13 @@ void EditStudentDetails()
                 {
                     printf("\n\t\tNo updates were made.\n");
                 }
-                printf("\n\t\tPress Enter to continue...");
                 repeatMenu = 0;
                 break;
 
             default:
-                printf("\n\t\tInvalid choice");
-                printf("\n\t\t\t\t\t\tPress Enter to continue");
+                printf("\n\t\tInvalid choice!");
+                printf("\n\t\tPress any key to retry");
+                getch();
                 break;
         }
     } while (repeatMenu);
@@ -519,7 +442,6 @@ void EditStudentDetails()
 
     fclose(file);
 }
-
 
 void DeleteStudent()
 {
@@ -574,8 +496,6 @@ void DeleteStudent()
     {
         printf("\t\tStudent with ID %d not found.\n", search);
     }
-
-    printf("\n\t\t\t\t\tPress any key to continue...");
 }
 
 
